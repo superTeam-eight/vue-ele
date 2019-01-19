@@ -4,7 +4,7 @@ import App from './App.vue'
 import router from './router/router'
 import store from './store/index'
 import 'amfe-flexible'
-// import './iconfont/iconfont.css'
+// import './assets/iconfont/iconfont.css'
 
 Vue.config.productionTip = false
 
