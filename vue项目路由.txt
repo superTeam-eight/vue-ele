@@ -1,0 +1,42 @@
+*表示需要登录（登录和非登录显示不同页面）
+
+/
+	/      Index组件	
+		/home	#common1#
+		/find  （静态页面 或者 替换成搜索页）
+		/order  *
+		/profile  *
+			/addres
+				/add
+				/search   #common2#
+			/info  
+				/
+				...
+			/benefit/:type
+	
+	/login  
+	
+
+	/shoplist/:type   /*商家列表写为公共组件(含排序筛选)*/ #common1#
+	
+	
+	/msite    /*地址搜索框可封装为公共组件*/ #common2#
+
+	
+
+	/shop *
+		/评价
+		/点餐
+
+	/品质联盟             ？
+
+
+
+vuex  	user ：{
+	
+	}                       ------用户信息
+	position：{
+		latitude:
+		longitude:
+	}                                  -----经纬度
+	
