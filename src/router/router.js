@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '../views/Index'
+import Shop from '../views/Shop'
 
 Vue.use(Router)
 
@@ -52,7 +53,8 @@ export default new Router({
     },
     {
       path: '/shop',
-      component: () => ('../views/Shop')
+      // component: () => ('../views/Shop')
+      component: Shop
     },
     {
       path: '/shoplist',
