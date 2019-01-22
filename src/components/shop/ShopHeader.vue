@@ -41,21 +41,28 @@
             {{shop.name}}
           </h2>
           <table>
-            <th>
-              <td>1</td>
-              <td>1</td>
-              <td>1</td>
-              <td>1</td>
-              <td>1</td>
-            </th>
             <tr>
-              <td>2</td>
-              <td>21</td>
-              <td>2</td>
-              <td>2</td>
-              <td>2</td>
+              <td>{{shop.rating}}</td>
+              <td>{{shop.recent_order_num}}单</td>
+              <td>{{shop.delivery_mode.text}}</td>
+              <td>{{shop.piecewise_agent_fee.tips | formatFee}}元</td>
+              <td>{{shop.distance}}</td>
+            </tr>
+            <tr>
+              <td>评分</td>
+              <td>月售</td>
+              <td>{{shop.order_lead_time}}</td>
+              <td>配送费</td>
+              <td>距离</td>
             </tr>
           </table>
+          <h2 class="notice-title">
+            <span>公告</span>
+          </h2>
+          <div class="notice-cont">
+            亲爱的用户请提前40分钟下单，并且把地址登记正确，详细，避免耽误您的用餐时间;如有发现有少餐；错餐；漏餐；请拨打86561615！我们会尽快的为大家解决；德克士感谢您一如既往的支持！
+          </div>
+          <i class="cubeic-close" @click="closePopupD"></i>
         </div>
       </cube-popup>
     </header>
@@ -179,6 +186,9 @@ export default {
     },
     closePopup () {
       this.$refs.myPopup.hide()
+    },
+    closePopupD () {
+      this.$refs.myPopupD.hide()
     }
   },
   filters: {
@@ -188,6 +198,9 @@ export default {
         case '特' : return '特价'
         case '新' : return '首单'
       }
+    },
+    formatFee (v) {
+      return v.charAt(v.length - 1)
     }
   }
 }
@@ -313,9 +326,8 @@ export default {
     }
     .div-popup {
       position: relative;
-      width: 500px;
-      height: 286px;
-      padding: 53px 50px 56px;
+      width: 600px;
+      padding: 53px 0px 56px;
       background: #fff;
       border-radius: 1.066667vw;
       text-align: center;
@@ -323,6 +335,56 @@ export default {
         color: $titleColor;
         font-size: 45px;
         font-weight: 700;
+      }
+      .notice-title {
+        width: 152px;
+        height: 28px;
+        margin: 20px auto;
+        background-image: linear-gradient(90deg,#fff,#333 50%,#fff);
+        background-size: 100% 1px;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 28px;
+        color: $fontColor;
+        span {
+          background: #fff;
+          padding: 0 8px;
+        }
+      }
+      .notice-cont {
+        width: 500px;
+        margin: 0 auto;
+        font-size: 26px;
+        line-height: 40px;
+        text-align: left;
+        color: $titleColor;
+      }
+      table {
+        margin-top: 38px;
+        width: 100%;
+        td {
+          height: 48px;
+        }
+        tr:first-child {
+          font-size: 30px;
+          font-weight: 600;
+          color: $titleColor;
+        }
+        tr:last-child {
+          font-size: 22px;
+          font-weight: 400;
+          color: $fontColor;
+        }
+      }
+      i {
+        position: absolute;
+        bottom: -60px;
+        color: $fontColor;
+        border-radius: 50%;
+        border: 1px solid $fontColor;
+        font-size: 35px;
       }
     }
     
