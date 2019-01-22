@@ -1,0 +1,4 @@
+const HOMETYPES='HOMETYPES'
+export {
+    HOMETYPES
+}
