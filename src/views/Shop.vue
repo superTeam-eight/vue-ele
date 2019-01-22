@@ -52,12 +52,13 @@ export default {
   .sticky {
     height: 100vh;
     .rw {
-      height: 1000px;
+      height: calc(100vh - 81px);
     }
   }
   nav {
-    margin-top: 20px;
+    // margin-top: 20px;
     display: flex;
+    background: #fff;
     div {
       flex: 1;
       height: 80px;
