@@ -3,7 +3,7 @@
         <div class='topsearch'>
             <p class="address">
                 <i class="cubeic-location"></i>
-                <span>河南省电子商务产业园三号楼</span>
+                <span>正在定位中……</span>
                 <i class="cubeic-pulldown"></i>
             </p>
             <div class="search">
@@ -29,25 +29,29 @@
     import bannerPic from '../../components/home/BannerPic'
     import shopList from '../../components/home/ShopList'
     export default {
-        components:{
+        components: {
             slideMenu,
-            pageAd,bannerPic,shopList
+            pageAd,
+            bannerPic,
+            shopList
+        },
+        created(){
+            // 获取geohash
+            console.log(this.$route.query.geohash)
+            this.$store.dispatch('home/getshopslist',this.$route.query.geohash)
         }
 
     }
 </script>
 
 <style scoped lang='scss'>
-   
     @import '../../style/common';
-
     .topsearch {
         box-sizing: border-box;
         width: 750px;
         height: 191px;
         background-color: $themeColor;
         padding: 20px 28px 0 28px;
-
         .address {
             i {
                 color: #fff;
@@ -72,7 +76,6 @@
             border-radius: 3px;
             margin-top: 30px;
             text-align: center;
-
             // line-height: 72px;
             i,
             span {
@@ -82,6 +85,4 @@
             }
         }
     }
-
-    
 </style>

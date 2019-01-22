@@ -1,41 +1,49 @@
 <template>
     <div>
         <div class="head">
-            <p class="active">综合排序 <i class="cubeic-pulldown"></i></p>
-            <p>距离最近</p>
+            <p class="active" @click="showSlect">综合排序 <i class="cubeic-pulldown"></i></p>
+            <p @click="changeActivityType(5)">距离最近</p>
             <p>品质联盟</p>
             <p>筛选 <i class="cubeic-alert"></i></p>
+            <div class="select" v-show="showSlectCon">
+                <p @click="changeActivityType(1)">起送价</p>
+                <p @click="changeActivityType(2)">配送速度</p>
+                <p @click="changeActivityType(3)">评分</p>
+                <p @click="changeActivityType(4)">智能排序</p>
+                <p @click="changeActivityType(5)">距离最近</p>
+                <p @click="changeActivityType(6)">销量最高</p>
+            </div>
         </div>
-        <div class="mainlist">
+        <div class="mainlist" v-for="(shop,index) in shoplist" :key="index">
             <div class="image">
                 <router-link to="/home">
-                    <img src="" alt="" >
+                    <img :src="'https://elm.cangdu.org/img/'+shop.image_path" alt="" >
                 </router-link>
             </div>
             <div class="right">
                 <router-link to="/home"  class="link">
                     <div class="first">
                         <p class="title">
-                            皇堡(p盘槐里店)
+                            {{shop.name}}
                         </p>
                         <p class="more"><i class="cubeic-more"></i></p>
                     </div>
                     <div class='second'>
                         <!-- 评分 -->
                         <p class="rate">
-                            <cube-rate v-model="rate"></cube-rate> 
-                            <span>5</span>
+                            <cube-rate v-model="shop.rating" :disabled="true"></cube-rate> 
+                            <span>{{shop.rating}}</span>
                         </p>
-                        <p class="sendtype">蜂鸟专送</p>
+                        <!-- <p class="sendtype" v-if='shop.delivery_mode.text.length'>{{shop.delivery_mode.text}}</p> -->
                     </div>
                     <div class="third">
                         <p>
-                            <span>$20起送</span>
-                            <span>|免配送费</span>
+                            <span>￥{{shop.float_minimum_order_amount}}起送</span>
+                            <span>|{{shop.piecewise_agent_fee.tips}}</span>
                         </p>
                         <p>
-                            <span>2.10km</span> 
-                            <span>|42分钟</span> 
+                            <span>{{shop.distance}}</span> 
+                            <span>|{{shop.order_lead_time}}</span> 
                         </p>
                     </div>
                     <div class="fourth">
@@ -66,12 +74,31 @@ export default {
     data(){
         return {
             rate:4.7,
-            mini:true
+            mini:true,
+            showSlectCon:false,
+            page:{
+                order_by:''
+            }
+
         }
     },
     methods:{
         changeAcitivety(){
             this.mini=!this.mini;
+        },
+        showSlect(){
+            this.showSlectCon=!this.showSlectCon
+        },
+        changeActivityType(data){
+            this.page.order_by=data;
+            this.showSlectCon=false;
+            this.$store.dispatch('home/changeActivityType',this.page)
+            
+        }
+    },
+    computed:{
+        shoplist(){
+            return this.$store.state.home.shoplist
         }
     }
 }
@@ -88,6 +115,25 @@ export default {
         padding:20px;
         font-size: 28px;
         color:$fontColor;
+        position: relative;
+        .select{
+            position:absolute;
+            top:69px;
+            left:0;
+            width: 100%;
+            // height: 200px;
+            background-color: #fff;
+            z-index: 9999;
+            margin-top: 20px;
+            padding: 0 30px;
+            p{
+                font-size: 28px;
+                color: $fontColor;
+                height: 58px;
+                line-height: 28px;
+                text-align: left;
+            }
+        }
         p{
             width: 25%;
             text-align: center;
@@ -155,6 +201,7 @@ export default {
                 p{
                     height: 45px;
                     line-height: 45px;
+                    overflow: hidden;
                 }
             }
             .fourth{
