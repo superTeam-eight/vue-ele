@@ -17,19 +17,21 @@
         <page-ad></page-ad>
         <!-- 轮播图 -->
         <banner-pic></banner-pic>
-
+        <!-- 商铺列表 -->
+        <shop-list></shop-list>
     </div>
 
 </template>
 
 <script>
-    import slideMenu from '../../components/home/slideMenu'
-    import pageAd from '../../components/home/pageAd'
-    import bannerPic from '../../components/home/bannerPic'
+    import slideMenu from '../../components/home/SlideMenu'
+    import pageAd from '../../components/home/PageAd'
+    import bannerPic from '../../components/home/BannerPic'
+    import shopList from '../../components/home/ShopList'
     export default {
         components:{
             slideMenu,
-            pageAd,bannerPic
+            pageAd,bannerPic,shopList
         }
 
     }
