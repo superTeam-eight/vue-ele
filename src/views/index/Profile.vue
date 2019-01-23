@@ -1,5 +1,11 @@
 <template>
   <div class="profile">
+      <div class="profile-top">
+        <router-link to="/home">
+          <i class="cubeic-back"></i>  
+        </router-link>
+        <span>我的</span>
+      </div>
       <router-link to="/info" class="profile-header" tag="div">
         <img src="../../assets/logo.png" alt="">  
         <div class="center">
@@ -67,6 +73,24 @@ export default {
   @import '../../style/common.scss';
   .profile {
     background: #f5f5f5;
+  }
+  .profile-top {
+    box-sizing: border-box;
+    padding: 30px;
+    background: $themeColor;
+    display: flex;
+    align-items: center;
+    i {
+      color: #fff;
+    }
+    span {
+      color: #fff;
+      font-size: 36px;
+      font-weight: bold;
+      position: absolute;
+      left: 50%;
+      margin-left: -36px;
+    }
   }
   .profile-header {
     width: 750px;

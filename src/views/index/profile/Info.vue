@@ -41,13 +41,6 @@
                 <i class="cubeic-arrow"></i>
             </div>
         </router-link>
-        <router-link to="" class="avatar">
-            <span>小额免密支付</span>
-            <div class="author">
-                <span class="setting">未设置</span>
-                <i class="cubeic-arrow"></i>
-            </div>
-        </router-link>
         <div class="quit">
             <span>退出登录</span>
         </div>
