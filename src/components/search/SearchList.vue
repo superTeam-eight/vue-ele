@@ -14,7 +14,7 @@
                 <p @click="changeActivityType(6)">销量最高</p>
             </div>
         </div>
-        <div class="mainlist" v-for="(shop,index) in shoplist" :key="index">
+        <div class="mainlist" v-for="(shop,index) in shops" :key="index">
             <div class="image">
                 <router-link to="/home">
                     <img :src="'https://elm.cangdu.org/img/'+shop.image_path" alt="" >
@@ -71,9 +71,11 @@
 
 <script>
 export default {
+    props:{
+        shops:Array
+    },
     data(){
         return {
-            rate:4.7,
             mini:true,
             showSlectCon:false,
             page:{
@@ -96,9 +98,9 @@ export default {
         }
     },
     computed:{
-        shoplist(){
-            return this.$store.state.home.shoplist
-        }
+        // shoplist(){
+        //     this.shoplists=this.$store.state.home.shoplist
+        // }
     }
 }
 </script>

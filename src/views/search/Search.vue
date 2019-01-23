@@ -12,19 +12,19 @@
             </div>
         </div>
         <div class="list" v-else>
-            <shop-list></shop-list>
+            <search-list :shops='shops'></search-list>
         </div>
         
     </div>
 </template>
 
 <script>
-import shopList from '../../components/home/ShopList'
+import SearchList from '../../components/search/SearchList'
 export default {
     data(){
         return{
             keyword:'',
-            bo:true
+            bo:true            
         }
     },
     methods:{
@@ -33,8 +33,14 @@ export default {
             this.$store.dispatch('search/sousuo',this.keyword)
         }
     },
+    computed:{
+        shops(){
+            console.log(this.$store.state.search.shops)
+            return this.$store.state.search.shops
+        }
+    },
     components:{
-        shopList
+        SearchList
     }
 }
 </script>
