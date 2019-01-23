@@ -35,7 +35,7 @@
           <i class="cubeic-close" @click="closePopup"></i>
         </div>
       </cube-popup>
-      <cube-popup type="my-popup" ref="myPopupD" position="center" :mask-closable="true">
+      <cube-popup type="my-popup" ref="myPopupD" :center="true" :mask-closable="true">
         <div class="div-popup">
           <h2>
             {{shop.name}}
@@ -66,7 +66,6 @@
         </div>
       </cube-popup>
     </header>
-    
   </div>
 </template>
 
@@ -206,7 +205,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../../style/common.scss';
   header {
     .hd {

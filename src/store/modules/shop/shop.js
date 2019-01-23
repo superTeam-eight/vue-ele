@@ -3,6 +3,7 @@ import {
 } from '../../mutation-types'
 export default {
   state: {
+    cartgoods: null,
     isSticky: false
   },
   mutations: {

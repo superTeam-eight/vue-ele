@@ -1,65 +1,118 @@
 <template>
-  <div>
-    <cube-sticky :pos="scrollY" class="sticky" @change="isSticky" >
-      <cube-scroll  @scroll="scrollHandler" :scroll-events="['scroll']">
+  <div class="shop">
+    <div v-if="!isSticky">
+      <cube-scroll>
         <shop-header></shop-header>
-        <cube-sticky-ele ele-key="1">
-          <nav>
-            <div>
-              <router-link to="/shop/shoporder">点餐</router-link>
-            </div>
-            <div>
-              <router-link to="/shop/shoprate">评价</router-link>
-            </div>
-            <div>
-              <router-link to="/shop/shopdesc">商家</router-link>
-            </div>
-          </nav>
-        </cube-sticky-ele>
-        <cube-scroll nestMode="native">
-          <div class="rw">
-            <router-view></router-view>
+        <nav :class="{'navFixed':isFixed}">
+          <div>
+            <router-link to="/shop/shoporder">点餐</router-link>
           </div>
-        </cube-scroll>
+          <div>
+            <router-link to="/shop/shoprate">评价</router-link>
+          </div>
+          <div>
+            <router-link to="/shop/shopdesc">商家</router-link>
+          </div>
+        </nav>
+        <div @click="scrollTo" id="shop-main">
+          <router-view></router-view>
+        </div>
       </cube-scroll>
-    </cube-sticky>
+    </div>
+    <div v-else>
+      <shop-header></shop-header>
+      <nav :class="{'navFixed':isFixed}">
+        <div>
+          <router-link to="/shop/shoporder">点餐</router-link>
+        </div>
+        <div>
+          <router-link to="/shop/shoprate">评价</router-link>
+        </div>
+        <div>
+          <router-link to="/shop/shopdesc">商家</router-link>
+        </div>
+      </nav>
+      <div class="rw" id="shop-main" @click="scrollTo">
+        <router-view></router-view>
+      </div>
+    </div>
     <shopcart></shopcart>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import ShopHeader from '../components/shop/ShopHeader'
 import Shopcart from '../components/shop/Shopcart'
 export default {
   data() {
     return {
-      scrollY: 0,
+      isFixed: false
     }
   },
+  computed: {
+    ...mapState('shop',['isSticky'])
+  },
   methods: {
-    scrollHandler({ y }) {
-      this.scrollY = -y
+    handleScroll () {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      console.log(scrollTop)
+      if (scrollTop >= 444) {
+        this.isFixed = true
+      } else {
+        this.isFixed = false
+      }
     },
-    isSticky(x) {
-      this.$store.commit('shop/SET_STICKY', Boolean(x))
+    scrollTo () {
+      console.log(1111);
+      // document.body.scrollTop = 444;
+      document.querySelector("#shop-main").scrollIntoView();
     }
   },
   components: {
     ShopHeader,
     Shopcart
-  }
+  },
+  mounted () {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../style/common.scss';
   .sticky {
+    position: absolute;
+    // .rw {
+    //   height: 100vh;
+    // }
+    // .p {
+    //   position: absolute;
+    //   height: 100vh;
+    // }
+  }
+  .shop {
     height: 100vh;
-    .rw {
-      height: calc(100vh - 81px);
-    }
+  }
+  .rw {
+    height: calc(100vh - 217px);
+    padding-bottom: 136px;
+  }
+  main {
+    position: absolute;
+    top: 525px;
+    bottom: 136px;
+    // height: calc(100vh - 661px);
+  }
+  .nav-fixed {
+    position: fixed;
+    top: -81px;
   }
   nav {
+    width: 100%;
     display: flex;
     background: #fff;
     div {

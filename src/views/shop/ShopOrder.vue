@@ -4,7 +4,8 @@
   :data="data"
   :current="current"
   @change="changeHandler"
-  @sticky-change="stickyChangeHandler">
+  @sticky-change="stickyChangeHandler"
+  ref="sc">
     <cube-scroll-nav-panel
       v-for="item in data"
       :key="item.id"
@@ -27,8 +28,10 @@
               <span>￥</span>
               <span>{{food.specfoods[0].price}}</span>
             </p>
-            <i class="cubeic-add"></i>
+            <i class="cubeic-add add-button" v-if="!food.specifications[0]"></i>
+            <span class="add-button" v-else>选规格</span>
           </div>
+          
         </li>
       </ul>
     </cube-scroll-nav-panel>
@@ -39,7 +42,7 @@
 import goods from '../../../test.json'
 console.log(goods)
 
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 
 export default {
   data () {
@@ -49,14 +52,19 @@ export default {
     }
   },
   computed: {
-    ...mapState('shop', ['isSticky'])
+    // ...mapState('shop', ['isSticky'])
   },
   methods: {
     changeHandler(label) {
       // console.log('changed to:', label)
     },
     stickyChangeHandler(current) {
-      // console.log('sticky-change', current)
+      console.log(this.$refs.sc)
+      console.log('sticky-change', current)
+      if(!current) {
+        this.$store.commit('shop/SET_STICKY', true)
+        // this.$refs.sc.refresh()
+      }
     }
   }
 }
@@ -110,12 +118,21 @@ export default {
       color: $fontColor;
       font-size: 20px;
       position: relative;
-      i {
+      .add-button {
         position: absolute;
         right: 5px;
         bottom: 5px;
-        color: $themeColor;
+      }
+      i.add-button {
         font-size: 50px;
+        color: $themeColor;
+      }
+      span.add-button {
+        font-size: 26px;
+        color: #fff;
+        background: $themeColor;
+        padding: 5px 10px;
+        border-radius: 9.3px;
       }
       .food-name {
         width: 300px;
