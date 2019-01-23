@@ -1,35 +1,28 @@
 <template>
     <div class="nav">
-        <p @click="changeIndex(home)">
-            <i class="cubeic-home" :class="index=='home'?'active':''"></i>
-            <span :class="index=='home'?'active':''">首页</span>
-        </p>
-        <p @click="changeIndex(find)">
-            <i class="cubeic-search" :class="index=='find'?'active':''"></i>
-            <span :class="index=='find'?'active':''">发现</span>
-        </p>
-        <p @click="changeIndex(order)">
-            <i class="cubeic-message" :class="index=='order'?'active':''"></i>
-            <span :class="index=='order'?'active':''">订单</span>
-        </p>
-        <p @click="changeIndex(profile)">
-            <i class="cubeic-person" :class="index=='profile'?'active':''"></i>
-            <span :class="index=='profile'?'active':''">我的</span>
-        </p>
+        <router-link to="/home">
+            <i class="cubeic-home"></i>
+            <span>首页</span>
+        </router-link>
+        <router-link to="/find">
+            <i class="cubeic-search"></i>
+            <span>发现</span>
+        </router-link>
+        <router-link to="/order">
+            <i class="cubeic-message"></i>
+            <span>订单</span>
+        </router-link>
+        <router-link to="/profile">
+            <i class="cubeic-person"></i>
+            <span>我的</span>
+        </router-link>
     </div>
 </template>
 
 <script>
     export default {
         data() {
-            return {
-                index:'home'
-            }
-        },
-        methods:{
-            changeIndex(data){
-                this.index=data
-            }
+            return{}
         }
     }
 </script>
@@ -45,10 +38,14 @@
         border-top:1px solid #e9e9e9;
         background-color: #fff;
         display: flex;
-        p{
-            .active{
+        .active{
                 color: $themeColor;
+                i,span{
+                    color: $themeColor;
+                }
             }
+        a{
+            display: block;
             width: 25%;
             display: flex;
             flex-direction: column;

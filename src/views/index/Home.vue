@@ -6,10 +6,10 @@
                 <span>正在定位中……</span>
                 <i class="cubeic-pulldown"></i>
             </p>
-            <div class="search">
+            <router-link to="/search" class="search">
                 <i class="cubeic-search"></i>
                 <span>搜索饿了么商家、商品名称</span>
-            </div>
+            </router-link>
         </div>
         <!-- leibiao -->
         <slide-menu></slide-menu>
@@ -37,8 +37,35 @@
         },
         created(){
             // 获取geohash
-            console.log(this.$route.query.geohash)
-            this.$store.dispatch('home/getshopslist',this.$route.query.geohash)
+            if(this.$store.state.geohash){
+                //state中有geohsah 设置localStorage,并且diapatch
+                console.log(1)
+                localStorage.setItem('geohsah',this.$route.query.geohash)
+                this.$store.dispatch('home/getshopslist',this.$store.state.geohash)
+            }else{
+                console.log(2)
+                if(localStorage.getItem('geohash')){
+                    console.log(3)
+                    // ￥route中没有geohash ，判断本地有没有，有没就把这个值赋予vuex
+                    const geohash=localStorage.getItem('geohash');
+                    this.$store.state.geohash=geohash;
+                    console.log(geohash)
+                    this.$store.dispatch('home/getshopslist',this.$store.state.geohash)
+                    
+                }else{
+                    if(this.$route.query.geohash){
+                         localStorage.setItem('geohash',this.$route.query.geohash)
+                         this.$store.state.geohash=this.$route.query.geohash;
+                         this.$store.dispatch('home/getshopslist',this.$store.state.geohash)
+                    }else{
+                        // 两个都没有则进行跳转
+                        // this.$router.push('/') //此处写跳转到的地址页面
+                    }
+                    
+                }
+            }
+            // console.log(this.$route.query.geohash)
+            // this.$store.dispatch('home/getshopslist',this.$route.query.geohash)
         }
 
     }
@@ -71,6 +98,7 @@
         }
 
         .search {
+            display: block;
             height: 72px;
             background-color: #fff;
             border-radius: 3px;

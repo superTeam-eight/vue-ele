@@ -57,6 +57,12 @@ export default new Router({
     {
       path: '/shoplist',
       component: () => ('../views/ShopList')
+    },
+    {
+      // home页面搜索商品的页面
+      path:'/search',
+      component:() => import ('../views/search/Search')
     }
-  ]
+  ],
+  linkExactActiveClass: 'active'
 })
