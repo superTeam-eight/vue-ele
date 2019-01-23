@@ -23,10 +23,11 @@
               <span>月售{{food.month_sales}}</span>
               <span>好评率{{food.satisfy_rate}}%</span>
             </p>
-            <p>
-              <span>￥{{}}</span>
-              
+            <p class="price">
+              <span>￥</span>
+              <span>{{food.specfoods[0].price}}</span>
             </p>
+            <i class="cubeic-add"></i>
           </div>
         </li>
       </ul>
@@ -52,10 +53,10 @@ export default {
   },
   methods: {
     changeHandler(label) {
-      console.log('changed to:', label)
+      // console.log('changed to:', label)
     },
     stickyChangeHandler(current) {
-      console.log('sticky-change', current)
+      // console.log('sticky-change', current)
     }
   }
 }
@@ -108,6 +109,14 @@ export default {
     .food-desc {
       color: $fontColor;
       font-size: 20px;
+      position: relative;
+      i {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        color: $themeColor;
+        font-size: 50px;
+      }
       .food-name {
         width: 300px;
         height: 36px;
@@ -123,6 +132,17 @@ export default {
         margin: 10px 0;
         span {
           margin-right: 16px;
+        }
+      }
+      .price {
+        color: rgb(255,83,97);
+        margin-top: 40px;
+        span:first-child {
+          font-size: 28px;
+          margin-right: 2px;
+        }
+        span:last-child {
+          font-size: 36px;
         }
       }
     }

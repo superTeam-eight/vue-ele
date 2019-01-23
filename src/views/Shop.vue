@@ -1,6 +1,6 @@
 <template>
   <div>
-    <cube-sticky :pos="scrollY" class="sticky" @change="isSticky">
+    <cube-sticky :pos="scrollY" class="sticky" @change="isSticky" >
       <cube-scroll  @scroll="scrollHandler" :scroll-events="['scroll']">
         <shop-header></shop-header>
         <cube-sticky-ele ele-key="1">
@@ -16,21 +16,24 @@
             </div>
           </nav>
         </cube-sticky-ele>
-        <div class="rw">
-          <router-view></router-view>
-        </div>
-        
+        <cube-scroll nestMode="native">
+          <div class="rw">
+            <router-view></router-view>
+          </div>
+        </cube-scroll>
       </cube-scroll>
     </cube-sticky>
+    <shopcart></shopcart>
   </div>
 </template>
 
 <script>
 import ShopHeader from '../components/shop/ShopHeader'
+import Shopcart from '../components/shop/Shopcart'
 export default {
   data() {
     return {
-      scrollY: 0
+      scrollY: 0,
     }
   },
   methods: {
@@ -42,7 +45,8 @@ export default {
     }
   },
   components: {
-    ShopHeader
+    ShopHeader,
+    Shopcart
   }
 }
 </script>
@@ -56,7 +60,6 @@ export default {
     }
   }
   nav {
-    // margin-top: 20px;
     display: flex;
     background: #fff;
     div {
