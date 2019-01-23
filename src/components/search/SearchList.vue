@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="head">
+        <!-- <div class="head">
             <p class="active" @click="showSlect">综合排序 <i class="cubeic-pulldown"></i></p>
             <p @click="changeActivityType(5)">距离最近</p>
             <p>品质联盟</p>
@@ -13,7 +13,7 @@
                 <p @click="changeActivityType(5)">距离最近</p>
                 <p @click="changeActivityType(6)">销量最高</p>
             </div>
-        </div>
+        </div> -->
         <div class="mainlist" v-for="(shop,index) in shops" :key="index">
             <div class="image">
                 <router-link to="/home">

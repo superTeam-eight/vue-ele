@@ -12,12 +12,11 @@ export default{
         async sousuo({commit,state},keyword){
             state.menu.keyword=keyword;
             state.menu.type='search';
-            const position =localStorage.getItem('geohash')
-            state.menu.geohash=position
-            let asousuo= await aSousuo(state.menu)
-            console.log(asousuo)
-            commit('SEARCHSHOP',asousuo.data)
-
+            const position =localStorage.getItem('geohash');
+            state.menu.geohash=position;
+            let asousuo= await aSousuo(state.menu);
+            console.log(asousuo);
+            commit('SEARCHSHOP',asousuo.data);
         }
     },
     mutations:{
