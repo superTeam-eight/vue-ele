@@ -127,7 +127,7 @@
 
             .bottom {
                 display: flex;
-                height: 50%;;
+                height: 50%;
                 justify-content: space-between;
 
                 .title {
