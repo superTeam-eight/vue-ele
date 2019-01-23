@@ -8,8 +8,8 @@
 export default {
   methods: {
     async test () {
-      await this.$store.dispatch('aTest')
-      console.log(2222)
+      // await this.$store.dispatch('aTest')
+      // console.log(2222)
     }
   },
   created () {
