@@ -1,8 +1,14 @@
-import {test} from '../service/getData'
+import {login} from '../service/getData'
+// import {test} from '../service/getData'
 export default {
-  async aTest () {
-    console.log(111)
-    let a = await test()
-    console.log(a)
+  // async aTest () {
+  //   let a = await test()
+  // },
+  async log({commit},data) {
+    let log = await login(data);
+    console.log(log);
+    localStorage.setItem('user_id',log.data.user_id);
+    localStorage.setItem('username',log.data.username);
+    commit('LOGIN_MESSAGE', log);
   }
 }

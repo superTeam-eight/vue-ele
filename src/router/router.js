@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '../views/Index'
 
+
 Vue.use(Router)
 
 export default new Router({
@@ -44,19 +45,23 @@ export default new Router({
     },
     {
       path: '/login',
-      component: () => ('../views/Login')
+      component: () => import('../views/Login')
     },
     {
       path: '/msite',
-      component: () => ('../views/Msite')
+      component: () => import('../views/Msite'),
+    },
+    {
+      path: '/demand/:id',
+      component: () => import('../views/demand'),
     },
     {
       path: '/shop',
-      component: () => ('../views/Shop')
+      component: () => import('../views/Shop')
     },
     {
       path: '/shoplist',
-      component: () => ('../views/ShopList')
+      component: () => import('../views/ShopList')
     }
   ]
 })
