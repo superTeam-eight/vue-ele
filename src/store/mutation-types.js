@@ -1,1 +1,1 @@
-export const SET_STICKY = "SET_STICKY"
+export const SET_SHOP_DETAIL = "SET_SHOP_DETAIL"

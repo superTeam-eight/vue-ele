@@ -1,45 +1,40 @@
 <template>
-  <cube-scroll-nav
-  :side="true"
-  :data="data"
-  :current="current"
-  @change="changeHandler"
-  @sticky-change="stickyChangeHandler"
-  ref="sc">
-    <cube-scroll-nav-panel
-      v-for="item in data"
-      :key="item.id"
-      :label="item.name">
-      <div class="foods-title">
-        <span>{{item.name}}</span>
-        <span>{{item.description}}</span>
-      </div>
-      <ul>
-        <li v-for="food in item.foods" :key="food._id" class="food-detail">
-          <img :src="'//elm.cangdu.org/img/'+food.image_path" alt="">
-          <div class="food-desc">
-            <p class="food-name">{{food.name}}</p>
-            <p class="description">{{food.description}}</p>
-            <p class="description">
-              <span>月售{{food.month_sales}}</span>
-              <span>好评率{{food.satisfy_rate}}%</span>
-            </p>
-            <p class="price">
-              <span>￥</span>
-              <span>{{food.specfoods[0].price}}</span>
-            </p>
-            <i class="cubeic-add add-button" v-if="!food.specifications[0]"></i>
-            <span class="add-button" v-else>选规格</span>
-          </div>
-          
-        </li>
-      </ul>
-    </cube-scroll-nav-panel>
-  </cube-scroll-nav>
+<div>
+  <cube-scroll-nav-panel
+    v-for="item in data"
+    :key="item.id"
+    :label="item.name">
+    <div class="foods-title">
+      <span>{{item.name}}</span>
+      <span>{{item.description}}</span>
+    </div>
+    <ul>
+      <li v-for="food in item.foods" :key="food._id" class="food-detail">
+        <img :src="'//elm.cangdu.org/img/'+food.image_path" alt="">
+        <div class="food-desc">
+          <p class="food-name">{{food.name}}</p>
+          <p class="description">{{food.description}}</p>
+          <p class="description">
+            <span>月售{{food.month_sales}}</span>
+            <span>好评率{{food.satisfy_rate}}%</span>
+          </p>
+          <p class="price">
+            <span>￥</span>
+            <span>{{food.specfoods[0].price}}</span>
+          </p>
+          <i class="cubeic-add add-button" v-if="!food.specifications[0]"></i>
+          <span class="add-button" v-else @click="showSpec">选规格</span>
+        </div>
+      </li>
+    </ul>
+  </cube-scroll-nav-panel>
+</div>
 </template>
 
 <script>
 import goods from '../../../test.json'
+import bus from '../../bus'
+
 console.log(goods)
 
 // import { mapState } from 'vuex'
@@ -47,31 +42,27 @@ console.log(goods)
 export default {
   data () {
     return {
-      data:goods,
-      current:goods[0].name
+      data:goods
     }
   },
   computed: {
-    // ...mapState('shop', ['isSticky'])
+ 
   },
   methods: {
-    changeHandler(label) {
-      // console.log('changed to:', label)
-    },
-    stickyChangeHandler(current) {
-      console.log(this.$refs.sc)
-      console.log('sticky-change', current)
-      if(!current) {
-        this.$store.commit('shop/SET_STICKY', true)
-        // this.$refs.sc.refresh()
-      }
+    showSpec () {
+      bus.$emit('shop:showPopup', 'myPopupS')
     }
+  },
+  components: {
+
   }
+  
 }
 </script>
 
-<style lang="scss"  >
+<style lang="scss">
 @import '../../style/common.scss';
+
   .cube-scroll-nav-panel-title {
     display: none;
   }
