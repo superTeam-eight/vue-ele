@@ -31,7 +31,7 @@
           <p class="text">金币</p>
         </a>
       </div>
-      <router-link to="" class="common">
+      <router-link to="/myaddress" class="common">
         <i class="cubeic-location"></i>
         <div class="my-address">
           <span>我的地址</span>
