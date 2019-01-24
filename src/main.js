@@ -5,10 +5,7 @@ import router from './router/router'
 import store from './store/index'
 import 'amfe-flexible'
 // import './assets/iconfont/iconfont.css'
-import VueTouch from 'vue-touch'
 
-
-Vue.use(VueTouch, {name: 'v-touch'})
 Vue.config.productionTip = false
 
 new Vue({

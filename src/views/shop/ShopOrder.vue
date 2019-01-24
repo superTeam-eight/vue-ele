@@ -32,21 +32,22 @@
 </template>
 
 <script>
-import goods from '../../../test.json'
+// import goods from '../../../test.json'
 import bus from '../../bus'
 
-console.log(goods)
+// console.log(goods)
 
-// import { mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   data () {
     return {
-      data:goods
+      // data: this.foods
     }
   },
   computed: {
- 
+    ...mapState('shop',['shop','foods']),
+    ...mapState('shop',{'data':'foods'})
   },
   methods: {
     showSpec () {
@@ -55,6 +56,9 @@ export default {
   },
   components: {
 
+  },
+  mounted() {
+    document.querySelector('.cube-scroll-content').className="cube-scroll-content topShow"
   }
   
 }
