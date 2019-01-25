@@ -83,8 +83,22 @@
     <cube-popup type="my-popup" ref="myPopupS" position="bottom" :mask-closable="true">
       <div class="scale">
         <div class="scale-hd">
-          <img :src="'//elm.cangdu.org/img/'+currentFood.image_path" alt="">
+          <img :src="'//elm.cangdu.org/img/'" alt="">
+          <div class="scale-cont">
+            <p class="name">名字</p>
+            <p class="info">已选：红色</p>
+            <p class="price">
+              <span>￥</span><span>100</span>
+            </p>
+          </div>
         </div>
+        <p class="scale-t">规格</p>
+        <div class="scale-list">
+          <span class="active">红色法兰西</span>
+          <span>红色法兰西</span>
+          <span>红色法兰西</span>
+        </div>
+        <button class="btn">选好了</button>
       </div>
     </cube-popup>
   </div>
@@ -335,5 +349,85 @@ export default {
     height: 1036px;
     padding: 32px;
     background: #fff;
+    position: relative;
+    .scale-hd {
+      display: flex;
+      padding-bottom: 40px;
+      img {
+        width: 190px;
+        height: 190px;
+      }
+      .scale-cont {
+        display: flex;
+        flex-direction: column;
+        .name {
+          height: 40px;
+          line-height: 40px;
+          font-size: 34px;
+          font-weight: 700;
+          color: $titleColor;
+          margin-bottom: 16px;
+        }
+        .info {
+          font-size: 22px;
+          color: $fontColor;
+          flex: 1;
+        }
+        .price {
+          font-size: 48px;
+          color: rgb(255, 83, 57);
+          font-weight: 500;
+          height: 58px;
+          line-height: 58px;
+          span:first-child {
+            font-size: 40px;
+          }
+        }
+      }
+    }
+    .scale-t {
+      height: 33px;
+      margin-bottom: 24px;
+      font-size: 28px;
+      color: $fontColor;  
+    }
+    .scale-list {
+      display: flex;
+      flex-wrap: wrap;
+      // justify-content: space-between;
+      span {
+        width: 168px;
+        padding: 0 20px;
+        margin-bottom: 24px;
+        margin-right: 30px;
+        color: $titleColor;
+        font-size: 26px;
+        height: 64px;
+        line-height: 64px;
+        background: #f5f5f5;
+        text-align: center;
+      }
+      span:nth-child(3) {
+        margin-right: 0;
+      }
+      .active {
+        color: $themeColor;
+        font-weight: 700;
+        background: lighten($themeColor, 40%)
+      }
+    }
+    .btn {
+      width: 686px;
+      color: #fff;
+      background: $themeColor;
+      outline: none;
+      height: 80px;
+      border-radius: 4px;
+      border: none;
+      position: absolute;
+      bottom: 32px;
+      font-size: 32px;
+      font-weight: 700;
+    }
   }
 </style>

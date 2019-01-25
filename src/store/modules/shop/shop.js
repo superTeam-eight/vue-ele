@@ -1,6 +1,7 @@
 import {
   SET_SHOP_DETAIL,
-  SET_SHOP_FOODS
+  SET_SHOP_FOODS,
+  ADD_CART
 } from '../../mutation-types'
 import { 
   getShopDetail,
@@ -19,6 +20,30 @@ export default {
     [SET_SHOP_FOODS] (state, status) {
       console.log()
       state.foods = status
+    },
+    [ADD_CART] (state, {shop_id, category_id, item_id, food_id}) {
+      let category = state.foods.find(v => v.id === category_id)
+      console.log(category)
+      let item = category.foods.find(v => v.item_id === item_id)
+      console.log(item)
+      let food = item.specfoods.find(v => v.food_id === food_id)
+      console.log(food)
+      let value = state.cartgoods.shop_id.category_id.item_id.food_id
+      
+      // if( state.cartgoods.shop_id.category_id.item_id.food_id ){
+      //   value.num ++
+      // } else {
+      //   value = {
+      //     num: 1,
+      //     id: food_id,
+      //     name: food.name,
+      //     packing_fee: food.packing_fee,
+      //     price: food.price,
+      //     sku_id: food.sku_id,
+      //     specs: food.specs,
+      //     stock: food.stock
+      //   }
+      // }
     }
   },
   actions: {

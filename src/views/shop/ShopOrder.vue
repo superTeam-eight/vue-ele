@@ -22,7 +22,7 @@
             <span>￥</span>
             <span>{{food.specfoods[0].price}}</span>
           </p>
-          <i class="cubeic-add add-button" v-if="!food.specifications[0]"></i>
+          <i class="cubeic-add add-button" v-if="!food.specifications[0]" @click="addCart(food.category_id,food.item_id,food.specfoods[0].food_id)"></i>
           <span class="add-button" v-else @click="showSpec">选规格</span>
         </div>
       </li>
@@ -32,17 +32,15 @@
 </template>
 
 <script>
-// import goods from '../../../test.json'
 import bus from '../../bus'
 
-// console.log(goods)
 
 import { mapState } from 'vuex'
 
 export default {
   data () {
     return {
-      // data: this.foods
+
     }
   },
   computed: {
@@ -52,6 +50,11 @@ export default {
   methods: {
     showSpec () {
       bus.$emit('shop:showPopup', 'myPopupS')
+    },
+    addCart (category_id, item_id, food_id) {
+      let shop_id = 1;
+      console.log(shop_id, category_id, item_id, food_id)
+      this.$store.commit('shop/ADD_CART', {shop_id, category_id, item_id, food_id})
     }
   },
   components: {
