@@ -3,7 +3,7 @@
     <header v-if="shop">
       <div class="hd">
         <div class="shop-img">
-          <img src="" alt="">
+          <img :src="'//elm.cangdu.org/img/'+shop.image_path" alt="">
         </div>
       </div>
       <p class="shop-name" @click="showPopupD">
@@ -74,7 +74,6 @@ export default {
       box-sizing: border-box;
       .shop-img {
         margin: 0 auto;
-        background: red;
         width: 150px;
         height: 150px;
         img {

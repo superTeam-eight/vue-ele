@@ -82,7 +82,9 @@
     </cube-popup>
     <cube-popup type="my-popup" ref="myPopupS" position="bottom" :mask-closable="true">
       <div class="scale">
-
+        <div class="scale-hd">
+          <img :src="'//elm.cangdu.org/img/'+currentFood.image_path" alt="">
+        </div>
       </div>
     </cube-popup>
   </div>
@@ -93,13 +95,12 @@ import bus from '../bus'
 import { mapState } from 'vuex'
 import ShopHeader from '../components/shop/ShopHeader'
 import Shopcart from '../components/shop/Shopcart'
-// import goods from '../../test.json'
 export default {
   data() {
     return {
       isFixed: false,
-      // current:this.data[0].name,
-      isTouch: true
+      isTouch: true,
+      currentFood: null
     }
   },
   computed: {
