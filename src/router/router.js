@@ -67,6 +67,14 @@ export default new Router({
         {
           path: '/serverinfo',
           component: () => import('../views/index/profile/serve/ServerInfo.vue')
+        },
+        {
+          path: '/myaddress',
+          component: () => import('../views/index/profile/address/Add.vue')
+        },
+        {
+          path: '/edit',
+          component: () => import('../views/index/profile/address/Edit.vue')
         }
       ]
     },
