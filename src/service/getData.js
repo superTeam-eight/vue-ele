@@ -7,3 +7,6 @@ export const hometypes =()=>axios.get('http://ele.kassing.cn/v2/index_entry')
 export const shopslist =(page)=>axios.get('http://elm.cangdu.org/shopping/restaurants',{params:page})
 // 主页搜所商品接口
 export const  aSousuo=(menu)=>axios.get('http://elm.cangdu.org/v4/restaurants',{params:menu})
+
+
+export const server = () => axios.get('http://elm.cangdu.org/v3/profile/explain')

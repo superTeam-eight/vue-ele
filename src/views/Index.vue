@@ -11,15 +11,6 @@ import  TabBar from '../components/tabBar/TabBar';
 export default {
   components:{
     TabBar
-  },
-  methods: {
-    // async test () {
-    //   await this.$store.dispatch('aTest')
-    //   console.log(2222)
-    // }
-  },
-  created () {
-    // this.test()
   }
 }
 </script>
