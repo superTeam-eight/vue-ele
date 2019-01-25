@@ -40,6 +40,7 @@
         methods: {
             async site() {
                 await this.$store.dispatch('site/site');
+                console.log(this.$store.state.site);
 
             },
             formatCities(cities) {

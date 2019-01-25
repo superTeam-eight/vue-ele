@@ -9,13 +9,14 @@
                 </g>
             </svg>
         </div>
-        <cube-input placeholder="账号" v-model="users.username"></cube-input>
-        <cube-input placeholder="密码" v-model="users.password"></cube-input>
+        <cube-input @input="getzm" placeholder="账号" v-model="users.username"></cube-input>
+        <cube-input @input="getzm" placeholder="密码" v-model="users.password"></cube-input>
         <div class="verificationBox">
-            <cube-input class="verification" placeholder="请输入验证码" v-model="users.captcha_code"></cube-input>
+            <cube-input @input="getyz" class="verification" placeholder="请输入验证码" v-model="users.captcha_code"></cube-input>
             <img :src="verificationcode">
         </div>
         <p class="p9527" v-show="fatr">用户名,密码,或验证码不能为空</p>
+        <p class="p9527" v-show="trfa">验证码不正确</p>
         <cube-button class="but" icon="cubeic-right" @click="login">一键登录</cube-button>
     </div>
 </template>
@@ -29,7 +30,8 @@
                     password: "",
                     captcha_code: ""
                 },
-                fatr:false
+                fatr:false,
+                trfa:false
             }
         },
         methods: {
@@ -39,10 +41,21 @@
             async login() {
                 if (this.users.username && this.users.password && this.users.captcha_code) {
                     await this.$store.dispatch('log', this.users);
+                    if(this.$store.state.userinfo.data.message == "验证码不正确"){
+                       this.trfa=true;
+                    }
                 }else{
                     this.fatr=true;
                 }
-            }
+            },
+            getzm(){
+                this.fatr=false;
+            },
+            getyz(){
+                this.trfa=false;
+                this.fatr=false;
+            },
+
         },
         computed:{
              verificationcode() {
