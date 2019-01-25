@@ -22,8 +22,12 @@
             <span>￥</span>
             <span>{{food.specfoods[0].price}}</span>
           </p>
-          <i class="cubeic-add add-button" v-if="!food.specifications[0]" @click="addCart(food.category_id,food.item_id,food.specfoods[0].food_id)"></i>
-          <span class="add-button" v-else @click="showSpec">选规格</span>
+          <div class="btn-box">
+            <i :class="'cubeic-remove remove-button'+ (food.specifications[0]?' disabled':'')" v-if="cartgoods[food.restaurant_id] && cartgoods[food.restaurant_id][food.category_id] && cartgoods[food.restaurant_id][food.category_id][food.item_id]" @click="REMOVE_CART({shop_id:food.restaurant_id,category_id:food.category_id,item_id:food.item_id,food_id:food.specfoods[0].food_id})"></i>
+            <span class="num" v-if="cartgoods[food.restaurant_id] && cartgoods[food.restaurant_id][food.category_id] && cartgoods[food.restaurant_id][food.category_id][food.item_id]">{{cartgoods[food.restaurant_id][food.category_id][food.item_id] | getFoodNum}}</span>
+            <i class="cubeic-add add-button" v-if="!food.specifications[0]" @click="ADD_CART({shop_id:food.restaurant_id,category_id:food.category_id,item_id:food.item_id,food_id:food.specfoods[0].food_id})"></i>
+            <span class="add-button" v-else @click="showSpec">选规格</span>
+          </div>
         </div>
       </li>
     </ul>
@@ -35,7 +39,7 @@
 import bus from '../../bus'
 
 
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   data () {
@@ -44,17 +48,22 @@ export default {
     }
   },
   computed: {
-    ...mapState('shop',['shop','foods']),
+    ...mapState('shop',['shop','cartgoods']),
     ...mapState('shop',{'data':'foods'})
   },
   methods: {
     showSpec () {
       bus.$emit('shop:showPopup', 'myPopupS')
     },
-    addCart (category_id, item_id, food_id) {
-      let shop_id = 1;
-      console.log(shop_id, category_id, item_id, food_id)
-      this.$store.commit('shop/ADD_CART', {shop_id, category_id, item_id, food_id})
+    ...mapMutations('shop', ['ADD_CART','REMOVE_CART'])
+  },
+  filters: {
+    getFoodNum (v) {
+      let n = 0;
+      for (const key in v) {
+        n += v[key].num
+      }
+      return n
     }
   },
   components: {
@@ -116,21 +125,32 @@ export default {
       color: $fontColor;
       font-size: 20px;
       position: relative;
-      .add-button {
+      .btn-box {
         position: absolute;
         right: 5px;
         bottom: 5px;
-      }
-      i.add-button {
-        font-size: 50px;
-        color: $themeColor;
-      }
-      span.add-button {
-        font-size: 26px;
-        color: #fff;
-        background: $themeColor;
-        padding: 5px 10px;
-        border-radius: 9.3px;
+        display: flex;
+        align-items: center;
+        i {
+          font-size: 50px;
+          color: $themeColor;
+        }
+        .disabled {
+          color: lighten($themeColor, 20%)
+        }
+        span.add-button {
+          font-size: 26px;
+          color: #fff;
+          background: $themeColor;
+          padding: 5px 10px;
+          border-radius: 9.3px;
+        }
+        .num {
+          font-size: 28px;
+          width: 52px;
+          text-align: center;
+          color: rgba(0, 0, 0, 0.87)
+        }
       }
       .food-name {
         width: 300px;
