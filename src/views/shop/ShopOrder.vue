@@ -23,10 +23,13 @@
             <span>{{food.specfoods[0].price}}</span>
           </p>
           <div class="btn-box">
-            <i :class="'cubeic-remove remove-button'+ (food.specifications[0]?' disabled':'')" v-if="cartgoods[food.restaurant_id] && cartgoods[food.restaurant_id][food.category_id] && cartgoods[food.restaurant_id][food.category_id][food.item_id]" @click="REMOVE_CART({shop_id:food.restaurant_id,category_id:food.category_id,item_id:food.item_id,food_id:food.specfoods[0].food_id})"></i>
+            <i 
+              :class="'cubeic-remove remove-button'+ (food.specifications[0]?' disabled':'')" 
+              v-if="cartgoods[food.restaurant_id] && cartgoods[food.restaurant_id][food.category_id] && cartgoods[food.restaurant_id][food.category_id][food.item_id]" 
+              @click="food.specifications[0]?showSpec('myPopupA'):REMOVE_CART({shop_id:food.restaurant_id,category_id:food.category_id,item_id:food.item_id,food_id:food.specfoods[0].food_id})"></i>
             <span class="num" v-if="cartgoods[food.restaurant_id] && cartgoods[food.restaurant_id][food.category_id] && cartgoods[food.restaurant_id][food.category_id][food.item_id]">{{cartgoods[food.restaurant_id][food.category_id][food.item_id] | getFoodNum}}</span>
             <i class="cubeic-add add-button" v-if="!food.specifications[0]" @click="ADD_CART({shop_id:food.restaurant_id,category_id:food.category_id,item_id:food.item_id,food_id:food.specfoods[0].food_id})"></i>
-            <span class="add-button" v-else @click="showSpec">选规格</span>
+            <span class="add-button" v-else @click="showSpec('myPopupS', food)">选规格</span>
           </div>
         </div>
       </li>
@@ -52,8 +55,8 @@ export default {
     ...mapState('shop',{'data':'foods'})
   },
   methods: {
-    showSpec () {
-      bus.$emit('shop:showPopup', 'myPopupS')
+    showSpec (type, food) {
+      bus.$emit('shop:showPopup', type, food)
     },
     ...mapMutations('shop', ['ADD_CART','REMOVE_CART'])
   },

@@ -80,25 +80,28 @@
         <i class="cubeic-close" @click="closePopup('myPopupD')"></i>
       </div>
     </cube-popup>
-    <cube-popup type="my-popup" ref="myPopupS" position="bottom" :mask-closable="true">
+    <cube-popup type="my-popup" ref="myPopupS" position="bottom" :mask-closable="true" v-if="currentFoods">
       <div class="scale">
         <div class="scale-hd">
-          <img :src="'//elm.cangdu.org/img/'" alt="">
+          <img :src="'//elm.cangdu.org/img/'+currentFoods.image_path" alt="">
           <div class="scale-cont">
-            <p class="name">名字</p>
-            <p class="info">已选：红色</p>
+            <p class="name">{{currentFoods.name}}</p>
+            <p class="info">已选：{{currentFoods.specfoods[sIndex].specs_name}}</p>
             <p class="price">
-              <span>￥</span><span>100</span>
+              <span>￥</span><span>{{currentFoods.specfoods[sIndex].price}}</span>
             </p>
           </div>
         </div>
         <p class="scale-t">规格</p>
         <div class="scale-list">
-          <span class="active">红色法兰西</span>
-          <span>红色法兰西</span>
-          <span>红色法兰西</span>
+          <span v-for="(food, index) in currentFoods.specfoods" :key="index" @click="sIndex = index" :class="{'active' : sIndex === index}">{{food.specs_name}}</span>
         </div>
-        <button class="btn">选好了</button>
+        <button class="btn" @click="addCart">选好了</button>
+      </div>
+    </cube-popup>
+    <cube-popup type="my-popup" ref="myPopupA" position="center" :mask-closable="true" :mask="false">
+      <div class="alert-msg">
+        多规格产品只能去购物车中删除哦！
       </div>
     </cube-popup>
   </div>
@@ -114,7 +117,8 @@ export default {
     return {
       isFixed: false,
       isTouch: true,
-      currentFood: null
+      currentFoods: null,
+      sIndex: 0
     }
   },
   computed: {
@@ -132,9 +136,15 @@ export default {
       this.isTouch = false
       document.querySelector('.cube-scroll-content').className="cube-scroll-content"
     },
-    showPopup (p) {
+    showPopup (p, food) {
+      this.currentFoods = food
       if (this.$refs[p]) {
         this.$refs[p].show()
+      }
+      if (p === 'myPopupA') {
+        setTimeout(()=>{
+          this.$refs[p].hide()
+        },1000)
       }
     },
     closePopup (p) {
@@ -145,7 +155,6 @@ export default {
       const id = 1
       try {
         await this.$store.dispatch('shop/getShopDetail', id)
-        console.log(this.shop)
       } catch (error) {
         
       }
@@ -155,10 +164,15 @@ export default {
         // const id = this.$router.params.id
         const id = 1
         await this.$store.dispatch('shop/getShopFoods', id)
-        console.log(this.data)
       } catch (error) {
         
       }
+    },
+    addCart () {
+      
+      const v = this.currentFoods.specfoods[this.sIndex]
+      this.$store.commit('shop/ADD_CART',{shop_id: v.restaurant_id, category_id: this.currentFoods.category_id, item_id: v.item_id, food_id: v.food_id})
+      this.closePopup('myPopupS')
     }
   },
   filters: {
@@ -344,6 +358,13 @@ export default {
       font-size: 35px;
     }
   }
+  .alert-msg {
+    font-size: 30px;
+    background: rgba(0,0,0,0.8);
+    border-radius: 8px;
+    color: #fff;
+    padding: 30px;
+  }
   .scale {
     width: 686px;
     height: 1036px;
@@ -356,6 +377,7 @@ export default {
       img {
         width: 190px;
         height: 190px;
+        margin-right: 14px;
       }
       .scale-cont {
         display: flex;
