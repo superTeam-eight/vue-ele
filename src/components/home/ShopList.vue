@@ -16,12 +16,12 @@
         </div>
         <div class="mainlist" v-for="(shop,index) in shoplist" :key="index">
             <div class="image">
-                <router-link to="/home">
+                <router-link :to="'/shop?id=' + shop.id">
                     <img :src="'https://elm.cangdu.org/img/'+shop.image_path" alt="" >
                 </router-link>
             </div>
             <div class="right">
-                <router-link to="/home"  class="link">
+                <router-link :to="'/shop?id=' + shop.id"  class="link">
                     <div class="first">
                         <p class="title">
                             {{shop.name}}

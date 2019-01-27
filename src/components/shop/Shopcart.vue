@@ -4,7 +4,7 @@
     <div class="cart-cont" v-show="isShowCart">
       <div class="hd">
         <span>已选商品</span>
-        <span @click="CLEART_CART(1);isShowCart = false">
+        <span @click="CLEART_CART($route.query.id);isShowCart = false">
           <i class="cubeic-delete"></i>
           清空
         </span>
@@ -60,9 +60,7 @@ export default {
   computed: {
     carts() {
       const cartgoods = this.$store.state.shop.cartgoods
-      console.log(cartgoods)
-      // const shop_id = this.$route
-      const shop_id = 1
+      const shop_id = this.$route.query.id
       let arr = []
       let p = 0
       let n = 0

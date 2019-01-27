@@ -119,7 +119,6 @@ export default {
     },
     [CLEART_CART] (state, shop_id) {
       if(state.cartgoods[shop_id]) {
-        // delete state.cartgoods[shop_id]
         state.cartgoods[shop_id] = {}
       }
     }
