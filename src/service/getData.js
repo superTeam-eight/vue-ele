@@ -24,3 +24,6 @@ export const hot = () => axios.get('http://ele.kassing.cn/v1/cities?type=hot')
 export const group = () => axios.get('http://ele.kassing.cn/v1/cities?type=group')
 // 地址搜索 {params:1}
 export const getdemand = (data) => axios.get('http://ele.kassing.cn/v1/pois',{params:data})
+export const getShopDetail = (id) => axios.get('https://elm.cangdu.org/shopping/restaurant/' + id)
+
+export const getShopFoods = (id) => axios.get('https://elm.cangdu.org/shopping/v2/menu?restaurant_id=' + id)

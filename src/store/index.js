@@ -10,6 +10,8 @@ import login from './modules/login'
 import site from './modules/site'
 import demand from './modules/demand'
 
+import shop from './modules/shop/shop'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -25,6 +27,7 @@ export default new Vuex.Store({
     search,
     login,
     site,
-    demand
+    demand,
+    shop
   }
 })

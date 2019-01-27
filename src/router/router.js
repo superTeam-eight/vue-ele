@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '../views/Index'
+import ShopOrder from '../views/shop/ShopOrder'
 
 
 Vue.use(Router)
@@ -44,7 +45,23 @@ export default new Router({
     },
     {
       path: '/shop',
-      component: () => import('../views/Shop')
+      component: () => import('../views/Shop'),
+      redirect: '/shop/shoporder',
+      children: [
+        {
+          path: 'shoporder',
+          // component: () => import('../views/shop/ShopOrder')
+          component: ShopOrder
+        },
+        {
+          path: 'shoprate',
+          component: () => import('../views/shop/ShopRate')
+        },
+        {
+          path: 'shopdesc',
+          component: () => import('../views/shop/ShopDesc')
+        }
+      ]
     },
     {
       path: '/shoplist',
@@ -107,4 +124,5 @@ export default new Router({
     }
   ],
   linkExactActiveClass: 'active'
+  // linkActiveClass: 'active'
 })
