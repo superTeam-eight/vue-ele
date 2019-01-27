@@ -6,12 +6,27 @@
         </router-link>
         <span>我的</span>
       </div>
-      <router-link to="/info" class="profile-header" tag="div">
+      <router-link :to="{path: '/info', query: { id: message.user_id}}" class="profile-header" tag="div" v-if="isUser">
+        <img :src="'http://elm.cangdu.org/img/'+ message.avatar" alt="">  
+        <div class="center">
+          <div>
+            <div>
+              <span class="login">{{message.username}}</span>
+            </div>
+            <div class="login-bottom">
+              <i class="cubeic-mobile-phone"></i>
+              <span class="more">暂无绑定手机号</span>
+            </div>
+          </div>
+          <i class="cubeic-arrow"></i>
+        </div> 
+      </router-link>
+      <router-link to="/login" class="profile-header" tag="div" v-else>
         <img src="../../assets/logo.png" alt="">  
         <div class="center">
           <div>
             <div>
-            <span class="login">登录/注册</span>
+              <span class="login">登录/注册</span>
             </div>
             <div class="login-bottom">
               <i class="cubeic-mobile-phone"></i>
@@ -23,11 +38,13 @@
       </router-link>
       <div class="middle">
         <router-link to="/benefit/hongbao" class="benefit bene">
-          <i class="cubeic-red-packet"></i>
+          <i class="cubeic-red-packet" v-if="!isUser"></i>
+          <span class="txt1" v-else>1个</span>
           <p class="text">红包</p>
         </router-link>
         <a href="https://activity.m.duiba.com.cn/chome/index?from=login&spm=14695.1.1.1" class="benefit">
-          <i class="cubeic-safe-pay"></i>
+          <i class="cubeic-safe-pay" v-if="!isUser"></i>
+          <span class="txt2" v-else>1元</span>
           <p class="text">金币</p>
         </a>
       </div>
@@ -64,8 +81,29 @@
 </template>
 
 <script>
+import { userInfo } from "../../service/getData.js"
 export default {
-
+  data () {
+    return {
+      isUser: true,
+      message: {}
+    }
+  },
+  methods: {
+    async user () {
+      const info = await userInfo('20558')
+      console.log(info.data)
+      if (info.data.status != 0) {
+        console.log('登录成功')
+        this.message = info.data
+      } else {
+        console.log('请登录')
+      }
+    }
+  },
+  created () {
+    this.user()
+  }
 }
 </script>
 
@@ -150,8 +188,14 @@ export default {
       .cubeic-red-packet {
          background: #ff5f3e;
       }
-      .cubeic-safe-pay {
-        background: #6ac20b;
+      .cubeic-safe-pay{
+          background: #6ac20b;
+      }
+      .txt1 {
+        color: #ff5f3e;
+      }
+      .txt2 {
+        color: #6ac20b;
       }
       .text{
         height: 30px;

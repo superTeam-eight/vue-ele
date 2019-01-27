@@ -16,7 +16,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    geohash:'',
+    geohash:'31.18183,121.69279',
     userinfo:[]
   },
   getters,

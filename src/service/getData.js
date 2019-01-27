@@ -27,3 +27,8 @@ export const getdemand = (data) => axios.get('http://ele.kassing.cn/v1/pois',{pa
 export const getShopDetail = (id) => axios.get('https://elm.cangdu.org/shopping/restaurant/' + id)
 
 export const getShopFoods = (id) => axios.get('https://elm.cangdu.org/shopping/v2/menu?restaurant_id=' + id)
+export const userInfo = (id) => axios.get('http://elm.cangdu.org/v1/user', {
+    params: {
+        user_id: id
+    }
+})
