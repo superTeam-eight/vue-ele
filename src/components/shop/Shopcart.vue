@@ -4,7 +4,7 @@
     <div class="cart-cont" v-show="isShowCart">
       <div class="hd">
         <span>已选商品</span>
-        <span>
+        <span @click="CLEART_CART(1);isShowCart = false">
           <i class="cubeic-delete"></i>
           清空
         </span>
@@ -43,6 +43,7 @@
         {{totalP | tPriceFormat}}
       </div>
     </div>
+    <div class="mask" v-show="isShowCart" @click="isShowCart = false"></div>
   </footer>
 </template>
 
@@ -80,7 +81,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('shop', ['ADD_CART','REMOVE_CART'])
+    ...mapMutations('shop', ['ADD_CART','REMOVE_CART','CLEART_CART'])
   },
   filters: {
     tPriceFormat (v) {
@@ -103,8 +104,16 @@ export default {
   footer {
     position: fixed;
     bottom: 0;
-    z-index: 2;
+    z-index: 5;
     width: 100%;
+    .mask {
+      width: 750px;
+      height: 100vh;
+      position: absolute;
+      bottom: 0;
+      z-index: -1;
+      background: rgba(0, 0, 0, 0.3);
+    }
     .tips {
       height: 39px;
       border-top: 1px solid #f9e8a3;
@@ -113,6 +122,7 @@ export default {
       font-size: 20px;
       line-height: 40px;
       text-align: center;
+      // z-index: 3;
     }
     .cart-cont {
       background: #fff;

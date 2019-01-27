@@ -2,7 +2,8 @@ import {
   SET_SHOP_DETAIL,
   SET_SHOP_FOODS,
   ADD_CART,
-  REMOVE_CART
+  REMOVE_CART,
+  CLEART_CART
 } from '../../mutation-types'
 import { 
   getShopDetail,
@@ -114,6 +115,12 @@ export default {
             }
           }
         }
+      }
+    },
+    [CLEART_CART] (state, shop_id) {
+      if(state.cartgoods[shop_id]) {
+        // delete state.cartgoods[shop_id]
+        state.cartgoods[shop_id] = {}
       }
     }
   },
