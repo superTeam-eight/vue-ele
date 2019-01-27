@@ -7,14 +7,14 @@
         <router-link to="" class="avatar">
             <span>头像</span>
             <div class="author">
-                <img src="../../../assets/logo.png" alt="">
+                <img :src="'http://elm.cangdu.org/img/'+ userinfo.avatar " alt="">
                 <i class="cubeic-arrow"></i>
             </div>
         </router-link>
         <router-link to="/setusername" class="avatar">
             <span>用户名</span>
             <div class="author">
-                <span>shndunnoijiojndnfew</span>
+                <span>{{userinfo.username}}</span>
                 <i class="cubeic-arrow"></i>
             </div>
         </router-link>
@@ -27,7 +27,7 @@
                 手机
             </span>
             <div class="author">
-                <span>159*****1265</span>
+                <span>{{phone}}</span>
                 <i class="cubeic-arrow"></i>
             </div>
         </router-link>
@@ -48,8 +48,31 @@
 </template>
 
 <script>
+import { userInfo } from "../../../service/getData.js"
 export default {
-
+    data () {
+        return {
+            userinfo: {},
+            phone: ''
+        }
+    },
+    methods: {
+        async getData () {
+            const data = await userInfo(this.$route.query.id)
+            // console.log(data.data)
+            this.userinfo = data.data
+            const arr = this.userinfo.username.split('')
+            for (let i = 0; i < arr.length; i++) {
+                if ( 2 < i && i < 7) {
+                    arr[i] = '*'
+                }
+            }
+            this.phone = arr.join('')
+        }
+    },
+    created () {
+        this.getData()
+    }
 }
 </script>
 
