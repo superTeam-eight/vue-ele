@@ -6,17 +6,25 @@ import actions from './actions'
 import mutations from './mutations'
 import home from './modules/home/home'
 import search from './modules/search/search'
+import login from './modules/login'
+import site from './modules/site'
+import demand from './modules/demand'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    geohash:''
+    geohash:'',
+    userinfo:[]
   },
   getters,
   mutations,
   actions,
   modules: {
     home,
-    search
+    search,
+    login,
+    site,
+    demand
   }
 })

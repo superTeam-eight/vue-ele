@@ -1,11 +1,14 @@
 <template>
-  
+    <site></site>
 </template>
 
 <script>
-export default {
-
-}
+    import site from '../components/site'
+    export default {
+        components: {
+            site
+        }
+    }
 </script>
 
 <style>
